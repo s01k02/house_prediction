@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pickle as pkl
 
+# print("hello")
 
 with open("Model.pkl", "rb") as f:
     model=pkl.load(f)
@@ -21,12 +22,12 @@ posted_by = st.selectbox("Posted By", list(posted_by_map.keys()))
 bhk = st.number_input("Number of BHK", 1, 10)
 square_ft = st.number_input("Square Feet", 200, 10000)
 ready_to_move = st.selectbox("Ready to Move (0/1)", [0, 1])
-bathroom = st.number_input("Number of Bathrooms", 1, 10)
+
 
 if st.button("Predict"):
     input_data = np.array([[under_construction, rera, bhk_or_rk_map[bhk_or_rk],
                             no_of_rooms, resale, posted_by_map[posted_by],
-                            bhk, square_ft, ready_to_move, bathroom]])
+                            bhk, square_ft, ready_to_move]])
 
     input_scaled = scaler.transform(input_data)
     prediction_log = float(model.predict(input_scaled)[0])
